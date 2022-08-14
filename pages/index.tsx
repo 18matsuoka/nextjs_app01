@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import './firebase'
+import '../lib/firebase'
 import {
   doc,
   getDoc,
@@ -12,7 +12,7 @@ import {
   addDoc,
   QuerySnapshot,
 } from "firebase/firestore";
-import { db, auth } from "./firebase"; //.envに書かれているfirebaseに接続するためのもの
+import { db, auth } from "../lib/firebase"; //.envに書かれているfirebaseに接続するためのもの
 import { signInWithRedirect,onAuthStateChanged,getRedirectResult, GoogleAuthProvider} from "firebase/auth";
 import { useEffect,useState } from 'react';
 
