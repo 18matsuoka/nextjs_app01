@@ -15,9 +15,10 @@ import {
 import { db, auth } from "../lib/firebase"; //.envに書かれているfirebaseに接続するためのもの
 import { signInWithRedirect, onAuthStateChanged, getRedirectResult, GoogleAuthProvider, signOut } from "firebase/auth";
 import { useEffect, useState } from 'react';
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, DialogContent, DialogContentText, DialogTitle, Modal, Paper, Typography } from '@mui/material';
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia,CircularProgress, DialogContent, DialogContentText, DialogTitle, Modal, Paper, Typography } from '@mui/material';
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const provider = new GoogleAuthProvider();
 
@@ -36,10 +37,22 @@ export const googleLogOut = async () => {
   }
 };
 
-export default function Layout({ children, user }) {
 
 
-const [helpOpen,setHelpOpen] = useState<boolean>(false);
+export default function Layout({ children, user}) {
+
+  //ローディング判定
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  onAuthStateChanged(auth, () => {
+    /* ↓追加 */
+    setLoading(false);
+  });
+}, []);
+
+
+  const [helpOpen, setHelpOpen] = useState<boolean>(false);
 
   // useEffect(() => {
   //   getRedirectResult(auth)
@@ -65,6 +78,13 @@ const [helpOpen,setHelpOpen] = useState<boolean>(false);
   //     });
   // }, []);
 
+  const router = useRouter();
+
+  //ホームに戻る
+  const backHome = () => {
+    router.push("/");
+  }
+
 
 
   return (
@@ -77,46 +97,49 @@ const [helpOpen,setHelpOpen] = useState<boolean>(false);
       </Head>
       <header className={styles.header}>
         {/* ログインしていない時はログインボタン表示 */}
-        {!user && <Button variant="contained" color="success" onClick={() => clickLogin()}>Login</Button>}
+        {!user && !loading && <Button variant="contained" color="success" onClick={() => clickLogin()}>Login</Button>}
+        {/* ロードしている時はローディングスピナーを表示 */}
+        {loading && (<CircularProgress size={40}/>)}
         {/* ログインしている時はログアウトボタン表示 */}
         {user && <Button variant="contained" color="success" onClick={() => googleLogOut()}>Logout</Button>}
         <Button variant="contained" color="success" onClick={() => setHelpOpen(true)}>Help</Button>
+        <Button variant="contained" color="success" onClick={() => backHome()}>Home</Button>
       </header>
       <hr />
       <main>
         {children}
       </main>
       <Modal
-                    open={helpOpen}
-                    onClose={() => setHelpOpen(false)}
-                >
-                    <Paper
-                        style={{
-                            left: '50%',
-                            top: '50%',
-                            position: 'absolute',
-                            maxWidth: '100%',
-                            minWidth: '400px',
-                            maxHeight: '70%',
-                            transform: 'translate(-50%, -50%)',
-                        }}
-                    >
-                        <Box textAlign="center">
-                            <DialogTitle>ゲームセンター</DialogTitle>
-                            <DialogContent>
-                                <DialogContentText textAlign="left">〇本アプリでは下記3つのゲームが遊べます。</DialogContentText>
-                                <DialogContentText textAlign="left">　</DialogContentText>
-                                <DialogContentText textAlign="left">・Flag Raising Game</DialogContentText>
-                                <DialogContentText textAlign="left">説明：一人用の千葉と茨城で行う旗揚げゲーム</DialogContentText>
-                                <DialogContentText textAlign="left">・Don&rsquo;t exceed 100!</DialogContentText>
-                                <DialogContentText textAlign="left">説明：多人数で遊べる引いたトランプの数の総和が100を超えたら負けのゲーム</DialogContentText>
-                                <DialogContentText textAlign="left">・BlackJack</DialogContentText>
-                                <DialogContentText textAlign="left">説明：一人用のブラックジャックゲーム</DialogContentText>
+        open={helpOpen}
+        onClose={() => setHelpOpen(false)}
+      >
+        <Paper
+          style={{
+            left: '50%',
+            top: '50%',
+            position: 'absolute',
+            maxWidth: '100%',
+            minWidth: '400px',
+            maxHeight: '70%',
+            transform: 'translate(-50%, -50%)',
+          }}
+        >
+          <Box textAlign="center">
+            <DialogTitle>ゲームセンター</DialogTitle>
+            <DialogContent>
+              <DialogContentText textAlign="left">〇本アプリでは下記3つのゲームが遊べます。</DialogContentText>
+              <DialogContentText textAlign="left">　</DialogContentText>
+              <DialogContentText textAlign="left">・Flag Raising Game</DialogContentText>
+              <DialogContentText textAlign="left">説明：一人用の千葉と茨城で行う旗揚げゲーム</DialogContentText>
+              <DialogContentText textAlign="left">・Don&rsquo;t exceed 100!</DialogContentText>
+              <DialogContentText textAlign="left">説明：多人数で遊べる引いたトランプの数の総和が100を超えたら負けのゲーム</DialogContentText>
+              <DialogContentText textAlign="left">・BlackJack</DialogContentText>
+              <DialogContentText textAlign="left">説明：一人用のブラックジャックゲーム</DialogContentText>
 
-                            </DialogContent>
-                        </Box>
-                    </Paper>
-                </Modal>
+            </DialogContent>
+          </Box>
+        </Paper>
+      </Modal>
 
     </div>
   )
