@@ -1,34 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 課題07-アンケートアプリ-
 
-## Getting Started
+## ①課題内容（どんな作品か）
+- ゲームセンターアプリ
+- Google認証をすることで先週までに作成していたFlag Raising Game・Don’t exceed 100!・BlackJack3つのゲームが遊べるアプリ
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## ②工夫した点・こだわった点
+- ReactのフレームワークであるNext.jsを導入した点。(ずっとやりたかった！)
+- UI講義を次回に控えているのでUIを少し意識して作ってみました。(UIの評価や改善案などをFBいただけると嬉しいです。)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ③難しかった点・次回にトライしたいこと
+### むずかしかったこと
+- Next.jsをデプロイしたVercelとFirebaseの連携が若干難しかった。
+- 今まで作ったアプリを今回移植する際に環境差異で起こる対応が難しかった。
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### 次回トライしたいこと
+- SSRなどNext.jsを導入した意味がある実装はできたとは言えないので次回挑戦したい。
+- 次回は単体テストのJESTを導入したい！
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## ④質問・疑問や感想、シェアしたいことなんでも
+### 感想
+- ずっとやりたいと思っていたNext.jsを導入できて達成感！
+- VercelでNext.jsのデプロイ自体はそんなにむずかしくなく、うまくできていると思った。
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 疑問
+- 先週.mp3で効果音を用いたゲームを作っていましたが、.mp3がエラーで導入できず効果音の移植は断念することになってしまいました。.mp3はNext.jsで使えないなどありますでしょうか。
+- 今度講義で使用するReact NativeではNext.jsは使えないのでしょうか。調べても記事とか特に出てこないので使用できるものではない? (React Nativeが何かあまりわかってないのでずれた質問かもです。)

@@ -20,10 +20,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const provider = new GoogleAuthProvider();
 
 //ログイン処理
 export const clickLogin = function () {
+  const provider = new GoogleAuthProvider();
   signInWithRedirect(auth, provider);
 }
 
