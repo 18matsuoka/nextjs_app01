@@ -39,7 +39,7 @@ export default function Menu({ user }) {
                     </CardActionArea>
                     <CardActions className={styles.selectGame}>
                         <Button variant="contained" color="secondary"><Link href="./FlagRaising">flag raising game(1 player)</Link></Button>
-                        <Button variant="contained" color="secondary">Don't exceed 100!(vs Players)</Button>
+                        <Button variant="contained" color="secondary">Don&rsquo;t exceed 100!(vs Players)</Button>
                         <Button variant="contained" color="secondary">BlackJack(vs CPU)</Button>
                     </CardActions>
                 </Card>
