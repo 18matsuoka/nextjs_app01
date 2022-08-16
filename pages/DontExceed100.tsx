@@ -249,7 +249,7 @@ function DontExceed100() {
         <Layout user>
             <div className={styles.App}>
 
-                <h2>Don't exceed 100！</h2>
+                <h2>Don&apos;t exceed 100！</h2>
 
                 {(data[0].gameFlag === false) ? "" : <p>今引いたカード</p>}
                 {/* 直前に引いたカード表示 */}
