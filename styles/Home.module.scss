@@ -1,0 +1,33 @@
+.header {
+    display: flex;
+    justify-content: right;
+
+    Button {
+        margin: 5px;
+    }
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.titleText {
+    text-align: center;
+}
+
+.titleButton {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.selectGame {
+    display: flex;
+    flex-direction: column;
+
+    Button {
+        margin: 5px;
+    }
+}
