@@ -18,17 +18,20 @@ import { signInWithRedirect } from "firebase/auth";
 import { getRedirectResult, GoogleAuthProvider } from "firebase/auth";
 import Layout from '../components/Layout';
 import { useRouter } from 'next/router';
+import { useAppSelector, useAppDispatch } from '../lib/redux/hooks'
 
 
 function DontExceed100() {
 
+    const userState = useAppSelector((state) => state.userInfo.user)
+
     const router = useRouter();
 
     useEffect(() => {
-        const unSub = onAuthStateChanged(auth, (user) => {
-          console.log(user, "user情報をチェック！");
+        const unSub = onAuthStateChanged(auth, (userState) => {
+          console.log(userState, "user情報をチェック！");
           //userにはログインor登録されているかの状態がtrue/falseで入ってくるので、!userはfalse＝user情報がないとき!
-          !user && router.push("/");
+          !userState && router.push("/");
         });
     
         return () => unSub();
@@ -246,7 +249,7 @@ function DontExceed100() {
     }
 
     return (
-        <Layout user>
+        <Layout>
             <div className={styles.App}>
 
                 <h2>Don&apos;t exceed 100！</h2>

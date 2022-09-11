@@ -19,10 +19,13 @@ import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typo
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from 'next/link';
 import Layout, { clickLogin, googleLogOut } from '../components/Layout';
+import { useAppSelector, useAppDispatch } from '../lib/redux/hooks'
 
 
 
-export default function Menu({ user }) {
+export default function Menu() {
+
+    const userState = useAppSelector((state) => state.userInfo.user)
 
 
     return (

@@ -19,10 +19,13 @@ import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Circ
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from 'next/link';
 import Layout, { clickLogin, googleLogOut } from '../components/Layout';
+import { useAppSelector, useAppDispatch } from '../lib/redux/hooks'
 
 
 
-export default function MainMenu({ user }) {
+export default function MainMenu() {
+  
+  const userState = useAppSelector((state) => state.userInfo.user)
 
   //ローディング判定
   const [loading, setLoading] = useState(true);
@@ -52,9 +55,9 @@ export default function MainMenu({ user }) {
           {!loading ? (
               <CardActions className={styles.titleButton}>
                 {/* ログインしていない時はログインボタン表示 */}
-                {!user && <Button variant="contained" color="success" onClick={() => clickLogin()}>Login</Button>}
+                {!userState && <Button variant="contained" color="success" onClick={() => clickLogin()}>Login</Button>}
                 {/* ログインしている時はログアウトボタン表示 */}
-                {user && <Button variant="contained" color="success" onClick={() => googleLogOut()}>Logout</Button>}
+                {userState && <Button variant="contained" color="success" onClick={() => googleLogOut()}>Logout</Button>}
               </CardActions>
           ):
           (<CardActions className={styles.titleButton}>Loading...<CircularProgress size={20}/></CardActions>)

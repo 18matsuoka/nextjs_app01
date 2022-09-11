@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import { useRouter } from 'next/router';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../lib/firebase";
+import { useAppSelector, useAppDispatch } from '../lib/redux/hooks'
 
 
 
@@ -14,13 +15,15 @@ const r_flag: string = "https://4.bp.blogspot.com/-h55YuXzc5jU/VUIHiInSXII/AAAAA
 
 function FlagRaising() {
 
+    const userState = useAppSelector((state) => state.userInfo.user)
+
     const router = useRouter();
 
     useEffect(() => {
-        const unSub = onAuthStateChanged(auth, (user) => {
-          console.log(user, "user情報をチェック！");
+        const unSub = onAuthStateChanged(auth, (userState) => {
+          console.log(userState, "user情報をチェック！");
           //userにはログインor登録されているかの状態がtrue/falseで入ってくるので、!userはfalse＝user情報がないとき!
-          !user && router.push("/");
+          !userState && router.push("/");
         });
     
         return () => unSub();
@@ -161,7 +164,7 @@ function FlagRaising() {
 
     return (
         <>
-            <Layout user>
+            <Layout>
                 <h1 className={styles.flagTitle}>Flag-raising game</h1>
                 {/* 左旗の問題 */}
                 {(direction === 0) && (<p className={styles.order}>{(question === undefined) ? "" : ((question ? "Lower" : "Raise") + " a Ibaraki")}</p>)}

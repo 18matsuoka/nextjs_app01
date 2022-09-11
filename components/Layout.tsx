@@ -19,6 +19,7 @@ import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia,
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useAppSelector, useAppDispatch } from '../lib/redux/hooks'
 
 
 //ログイン処理
@@ -39,7 +40,9 @@ export const googleLogOut = async () => {
 
 
 
-export default function Layout({ children, user}) {
+export default function Layout({ children}) {
+
+  const userState = useAppSelector((state) => state.userInfo.user)
 
   //ローディング判定
 const [loading, setLoading] = useState(true);
@@ -97,11 +100,11 @@ useEffect(() => {
       </Head>
       <header className={styles.header}>
         {/* ログインしていない時はログインボタン表示 */}
-        {!user && !loading && <Button variant="contained" color="success" onClick={() => clickLogin()}>Login</Button>}
+        {!userState && !loading && <Button variant="contained" color="success" onClick={() => clickLogin()}>Login</Button>}
         {/* ロードしている時はローディングスピナーを表示 */}
         {loading && (<CircularProgress size={40}/>)}
         {/* ログインしている時はログアウトボタン表示 */}
-        {user && <Button variant="contained" color="success" onClick={() => googleLogOut()}>Logout</Button>}
+        {userState && <Button variant="contained" color="success" onClick={() => googleLogOut()}>Logout</Button>}
         <Button variant="contained" color="success" onClick={() => setHelpOpen(true)}>Help</Button>
         <Button variant="contained" color="success" onClick={() => backHome()}>Home</Button>
       </header>
